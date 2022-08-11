@@ -27,7 +27,7 @@
                                 <td>{{ $gear->id }}</td>
                                 <td>{{ $gear->item }}</td>
                                 <td>{{ $gear->price }}</td>
-                                <td> <img src="{{ Storage::url($gear->image) }}" height="75" width="75" alt="" /></td>
+                                <td> <img src="{{ Storage::url($gear->image)}}" height="75" width="75" alt="" /></td>
                                 <td><form action="{{route('gears.destroy',$gear->id)}}" method="POST">
                                     <a class="btn btn-primary" href="{{route('gears.edit',$gear->id) }}">Update</a>
                                     @csrf

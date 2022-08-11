@@ -51,28 +51,27 @@ class GearController extends Controller
         return view('screens.update', compact('gear'));
     }
 
-    public function update(Request $request, Gear $gear )
+    public function update(Request $request, $id )
     {
         $request->validate([
             'item' => 'required',
-            'price' => 'required'
+            'price' => 'required',
         ]);
-  
-        $input = $request->all();
-  
-        if ($image = $request->file('image')) {
-            $destinationPath = public_path().'public/images';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        }else{
-            unset($input['image']);
+        
+        $gear = Gear::find($id);
+        if($request->hasFile('image')){
+            $request->validate([
+              'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            ]);
+            $path = $request->file('image')->store('public/images');
+            $gear->image = $path;
         }
-          
-        $gear->update($input);
+        $gear->item = $request->item;
+        $gear->price= $request->price;
+        $gear->save();
     
-
-        return redirect()->route('gears.index')->with('Success', 'Your data updated successfully.');
+        return redirect()->route('gears.index')
+                        ->with('success','Post updated successfully');
     }
 
     public function destroy(Gear $gear)
