@@ -69,7 +69,6 @@ class GearController extends Controller
         $gear->item = $request->item;
         $gear->price= $request->price;
         $gear->save();
-    
         return redirect()->route('gears.index')
                         ->with('success','Post updated successfully');
     }
