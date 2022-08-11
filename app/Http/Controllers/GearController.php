@@ -46,10 +46,10 @@ class GearController extends Controller
     }
 
  
-    public function edit(Gear $gear)
-    {
-        return view('screens.update', compact('gear'));
-    }
+    // public function edit(Gear $gear)
+    // {
+    //     return view('screens.update', compact('gear'));
+    // }
 
     public function update(Request $request, $id )
     {
